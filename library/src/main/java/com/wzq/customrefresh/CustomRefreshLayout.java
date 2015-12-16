@@ -22,8 +22,8 @@ public class CustomRefreshLayout extends FrameLayout {
     private static final long BACK_TOP_DUR = 600;
     private static final long REL_DRAG_DUR = 200;
 
-    private int mHeaderForeColor = 0xffffffff;
-    private int mHeaderBackColor = 0xff8b90af;
+    private int mHeaderForeColor = 0x00000000;
+    private int mHeaderBackColor = 0xffffffff;
     private int mHeaderCircleSmaller = 6;
 
 
@@ -76,11 +76,11 @@ public class CustomRefreshLayout extends FrameLayout {
     }
 
     private void setAttrs(AttributeSet attrs) {
-        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CirCleRefreshLayout);
+        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomRefreshLayout);
 
-        mHeaderBackColor = a.getColor(R.styleable.CirCleRefreshLayout_AniBackColor, mHeaderBackColor);
-        mHeaderForeColor = a.getColor(R.styleable.CirCleRefreshLayout_AniForeColor, mHeaderForeColor);
-        mHeaderCircleSmaller = a.getInt(R.styleable.CirCleRefreshLayout_CircleSmaller, mHeaderCircleSmaller);
+        mHeaderBackColor = a.getColor(R.styleable.CustomRefreshLayout_AnimBackColor, mHeaderBackColor);
+        mHeaderForeColor = a.getColor(R.styleable.CustomRefreshLayout_AnimForeColor, mHeaderForeColor);
+        mHeaderCircleSmaller = a.getInt(R.styleable.CustomRefreshLayout_AnimRadius, mHeaderCircleSmaller);
 
         a.recycle();
     }

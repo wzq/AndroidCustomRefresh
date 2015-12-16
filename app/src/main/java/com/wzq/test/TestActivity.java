@@ -2,6 +2,7 @@ package com.wzq.test;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,6 +61,12 @@ public class TestActivity extends Activity {
             @Override
             public void refreshing() {
                 // do something when refresh starts
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRefreshLayout.finishRefreshing();
+                    }
+                }, 3000);
             }
 
             @Override

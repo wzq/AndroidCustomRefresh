@@ -1,8 +1,8 @@
 <resources>
-    <declare-styleable name="CirCleRefreshLayout">
-        <attr name="AniBackColor" format="color" />
-        <attr name="AniForeColor" format="color" />
-        <attr name="CircleSmaller" format="integer"/>
+    <declare-styleable name="CustomRefreshLayout">
+        <attr name="AnimBackColor" format="color" />
+        <attr name="AnimForeColor" format="color" />
+        <attr name="AnimRadius" format="integer"/>
     </declare-styleable>
 
     <string name="app_name">AndroidCustomRefresh</string>
