@@ -1,15 +1,26 @@
 package com.wzq.test;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import com.github.wzq.EasyAdapter;
+import com.wzq.customrefresh.CustomRefreshLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements EasyAdapter.CallBack{
+
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +37,31 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        final CustomRefreshLayout crl = (CustomRefreshLayout) findViewById(R.id.custom_refresh);
+        crl.setOnRefreshListener(new CustomRefreshLayout.OnCircleRefreshListener() {
+            @Override
+            public void completeRefresh() {
+
+            }
+
+            @Override
+            public void refreshing() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        crl.finishRefreshing();
+                    }
+                }, 3000);
+            }
+        });
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        List<Object> data = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            data.add("item  "+i);
+        }
+        EasyAdapter adapter = new EasyAdapter(data, R.layout.item_main, new int[]{}, this);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -48,5 +84,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void bindItemView(EasyAdapter.EasyHolder holder, Object item, int position) {
+
     }
 }
