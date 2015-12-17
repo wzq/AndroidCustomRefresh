@@ -10,14 +10,18 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
- * Created by wzq on 15/7/18.
+ * Created by wzq on 15/12/11.
  */
 public class AnimationView extends View {
 
     private int PULL_HEIGHT;
     private int PULL_DELTA;
     private float mWidthOffset;
+    private int circleY;
 
 
     private AnimatorStatus mAniStatus = AnimatorStatus.PULL_DOWN;
@@ -66,6 +70,8 @@ public class AnimationView extends View {
 
     private Paint mBackPaint;
     private Paint mOutPaint;
+    private Paint mInPaint;
+    private Paint mTextPaint;
     private Path mPath;
 
 
@@ -87,17 +93,24 @@ public class AnimationView extends View {
         PULL_HEIGHT = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, context.getResources().getDisplayMetrics());
         PULL_DELTA = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, context.getResources().getDisplayMetrics());
         mWidthOffset = 0.5f;
+
         mBackPaint = new Paint();
         mBackPaint.setAntiAlias(true);
         mBackPaint.setStyle(Paint.Style.FILL);
-        mBackPaint.setColor(0xffffffff);
 
         mOutPaint = new Paint();
         mOutPaint.setAntiAlias(true);
-        mOutPaint.setColor(0xff8b90af);
         mOutPaint.setStyle(Paint.Style.STROKE);
         mOutPaint.setStrokeWidth(5);
 
+
+        mInPaint = new Paint();
+        mInPaint.setAntiAlias(true);
+        mInPaint.setStyle(Paint.Style.STROKE);
+        mInPaint.setStrokeWidth(5);
+
+        mTextPaint = new Paint( Paint.ANTI_ALIAS_FLAG);
+        mTextPaint.setTextAlign(Paint.Align.CENTER);
 
         mPath = new Path();
 
@@ -121,10 +134,12 @@ public class AnimationView extends View {
         super.onLayout(changed, left, top, right, bottom);
         if (changed) {
             mRadius = PULL_HEIGHT / 6;
+            circleY = PULL_HEIGHT - PULL_DELTA / 2 - mRadius*3;
             mWidth = getWidth();
             mHeight = getHeight();
 
-            if (mHeight < PULL_HEIGHT) {
+            if (mHeight < 10) mAniStatus = AnimatorStatus.PULL_DOWN;
+            if (mHeight < PULL_HEIGHT && mAniStatus!=AnimatorStatus.UP) {
                 mAniStatus = AnimatorStatus.PULL_DOWN;
             }
 
@@ -149,11 +164,13 @@ public class AnimationView extends View {
         switch (mAniStatus) {
             case PULL_DOWN:
                 drawCircle(canvas);
+                setTips(canvas,"下拉刷新" );
                 break;
             case REL_DRAG:
             case DRAG_DOWN:
                 drawCircle(canvas);
                 drawDrag(canvas);
+                setTips(canvas, "松开刷新");
                 break;
             case OUTER_CIR:
                 drawOutCir(canvas);
@@ -161,10 +178,12 @@ public class AnimationView extends View {
                 break;
             case REFRESHING:
                 drawRefreshing(canvas);
+                setTips(canvas, "刷新中");
                 invalidate();
                 break;
             case UP:
                 drawCircle(canvas);
+                setTips(canvas, new SimpleDateFormat().format(new Date()));
                 break;
 
         }
@@ -185,16 +204,19 @@ public class AnimationView extends View {
     }
 
     private void drawCircle(Canvas canvas) {
-
         canvas.drawRect(0, 0, mWidth, mHeight > PULL_HEIGHT ? PULL_HEIGHT : mHeight, mBackPaint);
 
         int angle = 360 * (mHeight) / PULL_HEIGHT;
 
-        int bottom = PULL_HEIGHT - PULL_DELTA / 2 - mRadius*2;
+        canvas.drawCircle(mWidth / 2, circleY, mRadius, mInPaint);
 
-        canvas.drawArc(new RectF(mWidth / 2 - mRadius, bottom - mRadius*2, mWidth / 2 + mRadius, bottom),
+        canvas.drawArc(new RectF(mWidth / 2 - mRadius, circleY - mRadius, mWidth / 2 + mRadius, circleY + mRadius),
                 -90, angle, false, mOutPaint);
 
+    }
+
+    private void setTips(Canvas canvas, String s) {
+        canvas.drawText(s, mWidth / 2, circleY + mRadius*2 + 20, mTextPaint);
     }
 
     private void drawDrag(Canvas canvas) {
@@ -224,7 +246,7 @@ public class AnimationView extends View {
 
     private void drawRefreshing(Canvas canvas) {
         canvas.drawRect(0, 0, mWidth, mHeight, mBackPaint);
-        int innerY = PULL_HEIGHT - PULL_DELTA / 2 - mRadius * 3;
+        int innerY = circleY;
         //canvas.drawCircle(mWidth / 2, innerY, mRadius, mBallPaint);
         int outerR = mRadius;
 
@@ -235,6 +257,8 @@ public class AnimationView extends View {
 
         int swipe = mRefreshStop - mRefreshStart;
         swipe = swipe < 0 ? swipe + 360 : swipe;
+
+        canvas.drawCircle(mWidth / 2, innerY, mRadius, mInPaint);
 
         canvas.drawArc(new RectF(mWidth / 2 - outerR, innerY - outerR, mWidth / 2 + outerR, innerY + outerR),
                 mRefreshStart, swipe, false, mOutPaint);
@@ -354,15 +378,24 @@ public class AnimationView extends View {
         mBackPaint.setColor(color);
     }
 
-    public void setAniForeColor(int color) {
+    public void setAniSwipeColor(int color) {
         mOutPaint.setColor(color);
-        setBackgroundColor(color);
     }
 
     // the height of view is smallTimes times of circle radius
     public void setRadius(int smallTimes) {
-        mRadius = mHeight / smallTimes;
+        mRadius = smallTimes;
     }
 
+    public void setAniCircleColor(int color){
+        mInPaint.setColor(color);
+    }
 
+    public void setTipTextColor(int color){
+        mTextPaint.setColor(color);
+    }
+
+    public void setTipTextSize(float size){
+        mTextPaint.setTextSize(size);
+    }
 }

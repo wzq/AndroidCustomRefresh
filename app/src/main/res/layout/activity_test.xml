@@ -9,9 +9,7 @@
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:AnimBackColor="#f1f2f9"
-        app:AnimForeColor="#f40606"
-        app:AnimRadius="6">
+        android:background="#fff">
 
         <ListView
             android:id="@+id/list"

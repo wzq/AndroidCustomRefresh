@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.wzq.customrefresh.CustomRefreshLayout;
@@ -17,7 +15,6 @@ public class TestActivity extends Activity {
 
     private CustomRefreshLayout mRefreshLayout;
     private ListView mList;
-    private Button mStop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +23,6 @@ public class TestActivity extends Activity {
 
         mRefreshLayout = (CustomRefreshLayout) findViewById(R.id.refresh_layout);
         mList = (ListView) findViewById(R.id.list);
-        mStop = (Button) findViewById(R.id.stop_refresh);
 
         String[] strs = {
             "The",
@@ -49,12 +45,6 @@ public class TestActivity extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, strs);
         mList.setAdapter(adapter);
 
-        mStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mRefreshLayout.finishRefreshing();
-            }
-        });
 
         mRefreshLayout.setOnRefreshListener(
                 new CustomRefreshLayout.OnCircleRefreshListener() {

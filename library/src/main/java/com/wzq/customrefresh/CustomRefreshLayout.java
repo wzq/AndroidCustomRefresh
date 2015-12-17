@@ -3,6 +3,7 @@ package com.wzq.customrefresh;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -15,16 +16,19 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
 /**
- * Created by wzq on 15/7/20.
+ * Created by wzq on 15/12/11.
  */
 public class CustomRefreshLayout extends FrameLayout {
 
     private static final long BACK_TOP_DUR = 600;
     private static final long REL_DRAG_DUR = 200;
 
-    private int mHeaderForeColor = 0x00000000;
-    private int mHeaderBackColor = 0xffffffff;
-    private int mHeaderCircleSmaller = 6;
+    private int mHeaderSwipeColor = 0xffff3d00;
+    private int mHeaderCircleColor = 0xffffccbc;
+    private int mHeaderBackColor = 0xfff5f5f5;
+    private int mHeaderRadius = 6;
+    private int mHeaderTextColor = Color.GRAY;
+    private float mHeaderTextSize = 14;
 
 
     private float mPullHeight;
@@ -61,10 +65,14 @@ public class CustomRefreshLayout extends FrameLayout {
         if (getChildCount() > 1) {
             throw new RuntimeException("you can only attach one child");
         }
+
         setAttrs(attrs);
+        mHeaderRadius = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mHeaderRadius, context.getResources().getDisplayMetrics());
+        mHeaderTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mHeaderTextSize, context.getResources().getDisplayMetrics());
+
         mPullHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130, context.getResources().getDisplayMetrics());
         mHeaderHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, context.getResources().getDisplayMetrics());
-        System.out.println(mPullHeight+"-"+mHeaderHeight);// TODO: 15/12/15
+
         this.post(new Runnable() {
             @Override
             public void run() {
@@ -79,8 +87,11 @@ public class CustomRefreshLayout extends FrameLayout {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomRefreshLayout);
 
         mHeaderBackColor = a.getColor(R.styleable.CustomRefreshLayout_AnimBackColor, mHeaderBackColor);
-        mHeaderForeColor = a.getColor(R.styleable.CustomRefreshLayout_AnimForeColor, mHeaderForeColor);
-        mHeaderCircleSmaller = a.getInt(R.styleable.CustomRefreshLayout_AnimRadius, mHeaderCircleSmaller);
+        mHeaderSwipeColor = a.getColor(R.styleable.CustomRefreshLayout_AnimCircleColor, mHeaderSwipeColor);
+        mHeaderCircleColor = a.getColor(R.styleable.CustomRefreshLayout_AnimSwipeColor, mHeaderCircleColor);
+        mHeaderRadius = a.getInt(R.styleable.CustomRefreshLayout_AnimRadius, mHeaderRadius);
+        mHeaderTextColor = a.getInt(R.styleable.CustomRefreshLayout_AnimTextColor, mHeaderTextColor);
+        mHeaderTextSize = a.getFloat(R.styleable.CustomRefreshLayout_AnimTextSize, mHeaderTextSize);
 
         a.recycle();
     }
@@ -93,8 +104,11 @@ public class CustomRefreshLayout extends FrameLayout {
 
         addViewInternal(mHeader);
         mHeader.setAniBackColor(mHeaderBackColor);
-        mHeader.setAniForeColor(mHeaderForeColor);
-        mHeader.setRadius(mHeaderCircleSmaller);
+        mHeader.setAniSwipeColor(mHeaderSwipeColor);
+        mHeader.setAniCircleColor(mHeaderCircleColor);
+        mHeader.setRadius(mHeaderRadius);
+        mHeader.setTipTextColor(mHeaderTextColor);
+        mHeader.setTipTextSize(mHeaderTextSize);
 
         setUpChildAnimation();
     }

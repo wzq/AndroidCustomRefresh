@@ -1,8 +1,11 @@
 <resources>
     <declare-styleable name="CustomRefreshLayout">
         <attr name="AnimBackColor" format="color" />
-        <attr name="AnimForeColor" format="color" />
+        <attr name="AnimSwipeColor" format="color" />
+        <attr name="AnimCircleColor" format="color"/>
         <attr name="AnimRadius" format="integer"/>
+        <attr name="AnimTextSize" format="integer"/>
+        <attr name="AnimTextColor" format="color"/>
     </declare-styleable>
 
     <string name="app_name">AndroidCustomRefresh</string>
