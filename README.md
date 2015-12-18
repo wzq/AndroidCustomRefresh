@@ -9,7 +9,8 @@ Android custom refresh layout for ``listview`` and ``recyclerview``
 *** 
 
 In XML
-    
+
+```java
     <com.wzq.customrefresh.CustomRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +23,8 @@ In XML
 
         </android.support.v7.widget.RecyclerView>
     </com.wzq.customrefresh.CustomRefreshLayout> 
-    
+```
+
 Attrs 
     
      <declare-styleable name="CustomRefreshLayout">
