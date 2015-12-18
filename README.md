@@ -26,7 +26,8 @@ In XML
 ```
 
 Attrs 
-    
+
+```xml
      <declare-styleable name="CustomRefreshLayout">
             <attr name="AnimBackColor" format="color" />
             <attr name="AnimSwipeColor" format="color" />
@@ -35,11 +36,12 @@ Attrs
             <attr name="AnimTextSize" format="integer"/>
             <attr name="AnimTextColor" format="color"/>
      </declare-styleable>
-        
+```
+
 Add Listener 
 
 ```java
-        final CustomRefreshLayout crl = (CustomRefreshLayout) findViewById(R.id.custom_refresh);
+final CustomRefreshLayout crl = (CustomRefreshLayout) findViewById(R.id.custom_refresh);
         crl.setOnRefreshListener(new CustomRefreshLayout.OnCircleRefreshListener() {
             @Override
             public void completeRefresh() {
