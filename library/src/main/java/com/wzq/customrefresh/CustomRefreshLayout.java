@@ -181,7 +181,7 @@ public class CustomRefreshLayout extends FrameLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         if (mIsRefreshing) {
-            return true;
+            return false;
         }
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:

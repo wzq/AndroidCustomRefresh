@@ -326,17 +326,17 @@ public class AnimationView extends View {
     private long mOutStart;
     private long mOutStop;
 
-    private void startOutCir() {
-        mOutStart = System.currentTimeMillis();
-        mOutStop = mOutStart + OUTER_DUR;
-        mAniStatus = AnimatorStatus.OUTER_CIR;
-        mRefreshStart = 90;
-        mRefreshStop = 90;
-        TARGET_DEGREE = 270;
-        mIsStart = true;
-        mIsRefreshing = true;
-        invalidate();
-    }
+//    private void startOutCir() {
+//        mOutStart = System.currentTimeMillis();
+//        mOutStop = mOutStart + OUTER_DUR;
+//        mAniStatus = AnimatorStatus.OUTER_CIR;
+//        mRefreshStart = 90;
+//        mRefreshStop = 90;
+//        TARGET_DEGREE = 270;
+//        mIsStart = true;
+//        mIsRefreshing = true;
+//        invalidate();
+//    }
 
     private float getOutRatio() {
         if (System.currentTimeMillis() >= mOutStop) {
