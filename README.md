@@ -34,3 +34,26 @@ Attrs
             <attr name="AnimTextColor" format="color"/>
      </declare-styleable>
         
+Add Listener 
+
+```java
+        final CustomRefreshLayout crl = (CustomRefreshLayout) findViewById(R.id.custom_refresh);
+        crl.setOnRefreshListener(new CustomRefreshLayout.OnCircleRefreshListener() {
+            @Override
+            public void completeRefresh() {
+
+            }
+
+            @Override
+            public void refreshing() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        crl.finishRefreshing();
+                    }
+                }, 3000);
+            }
+        }); 
+        
+```
+    

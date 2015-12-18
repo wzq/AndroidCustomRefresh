@@ -91,6 +91,8 @@ public class AnimationView extends View {
         PULL_DELTA = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, context.getResources().getDisplayMetrics());
         mWidthOffset = 0.5f;
 
+        int stroke = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, context.getResources().getDisplayMetrics());
+
         mBackPaint = new Paint();
         mBackPaint.setAntiAlias(true);
         mBackPaint.setStyle(Paint.Style.FILL);
@@ -98,13 +100,13 @@ public class AnimationView extends View {
         mOutPaint = new Paint();
         mOutPaint.setAntiAlias(true);
         mOutPaint.setStyle(Paint.Style.STROKE);
-        mOutPaint.setStrokeWidth(5);
+        mOutPaint.setStrokeWidth(stroke);
 
 
         mInPaint = new Paint();
         mInPaint.setAntiAlias(true);
         mInPaint.setStyle(Paint.Style.STROKE);
-        mInPaint.setStrokeWidth(5);
+        mInPaint.setStrokeWidth(stroke);
 
         mTextPaint = new Paint( Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
