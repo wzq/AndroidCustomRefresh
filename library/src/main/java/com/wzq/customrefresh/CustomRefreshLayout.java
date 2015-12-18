@@ -226,7 +226,7 @@ public class CustomRefreshLayout extends FrameLayout {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 if (mChildView != null) {
-                    if (mChildView.getTranslationY() >= mHeaderHeight) {
+                    if (mChildView.getTranslationY() > mHeaderHeight) {
                         mUpBackAnimator.start();
                         mHeader.releaseDrag();
                         mIsRefreshing = true;

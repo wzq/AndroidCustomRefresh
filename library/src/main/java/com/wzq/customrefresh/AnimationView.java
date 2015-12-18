@@ -137,7 +137,7 @@ public class AnimationView extends View {
             mHeight = getHeight();
 
             if (mHeight < 10) mAniStatus = AnimatorStatus.PULL_DOWN;
-            if (mHeight < PULL_HEIGHT && mAniStatus!=AnimatorStatus.UP) {
+            if (mHeight < PULL_HEIGHT && mAniStatus!=AnimatorStatus.UP && mAniStatus!=AnimatorStatus.REL_DRAG) {
                 mAniStatus = AnimatorStatus.PULL_DOWN;
             }
 
