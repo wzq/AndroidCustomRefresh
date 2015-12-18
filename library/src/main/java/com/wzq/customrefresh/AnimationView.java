@@ -10,9 +10,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * Created by wzq on 15/12/11.
  */
@@ -133,8 +130,7 @@ public class AnimationView extends View {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         if (changed) {
-            mRadius = PULL_HEIGHT / 6;
-            circleY = PULL_HEIGHT - PULL_DELTA / 2 - mRadius*3;
+            circleY = PULL_HEIGHT/2 - mRadius - 8;
             mWidth = getWidth();
             mHeight = getHeight();
 
@@ -164,7 +160,7 @@ public class AnimationView extends View {
         switch (mAniStatus) {
             case PULL_DOWN:
                 drawCircle(canvas);
-                setTips(canvas,"下拉刷新" );
+                setTips(canvas, "下拉刷新");
                 break;
             case REL_DRAG:
             case DRAG_DOWN:
@@ -183,7 +179,7 @@ public class AnimationView extends View {
                 break;
             case UP:
                 drawCircle(canvas);
-                setTips(canvas, new SimpleDateFormat().format(new Date()));
+                setTips(canvas, "刷新完成");
                 break;
 
         }
@@ -216,7 +212,7 @@ public class AnimationView extends View {
     }
 
     private void setTips(Canvas canvas, String s) {
-        canvas.drawText(s, mWidth / 2, circleY + mRadius*2 + 20, mTextPaint);
+        canvas.drawText(s, mWidth / 2, circleY + mRadius*2 + 22, mTextPaint);
     }
 
     private void drawDrag(Canvas canvas) {

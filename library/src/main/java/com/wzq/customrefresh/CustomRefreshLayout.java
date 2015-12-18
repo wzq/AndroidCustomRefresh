@@ -26,9 +26,9 @@ public class CustomRefreshLayout extends FrameLayout {
     private int mHeaderSwipeColor = 0xffff3d00;
     private int mHeaderCircleColor = 0xffffccbc;
     private int mHeaderBackColor = 0xfff5f5f5;
-    private int mHeaderRadius = 6;
+    private int mHeaderRadius = 14;
     private int mHeaderTextColor = Color.GRAY;
-    private float mHeaderTextSize = 14;
+    private float mHeaderTextSize = 12;
 
 
     private float mPullHeight;
@@ -87,8 +87,8 @@ public class CustomRefreshLayout extends FrameLayout {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomRefreshLayout);
 
         mHeaderBackColor = a.getColor(R.styleable.CustomRefreshLayout_AnimBackColor, mHeaderBackColor);
-        mHeaderSwipeColor = a.getColor(R.styleable.CustomRefreshLayout_AnimCircleColor, mHeaderSwipeColor);
-        mHeaderCircleColor = a.getColor(R.styleable.CustomRefreshLayout_AnimSwipeColor, mHeaderCircleColor);
+        mHeaderCircleColor = a.getColor(R.styleable.CustomRefreshLayout_AnimCircleColor, mHeaderCircleColor);
+        mHeaderSwipeColor = a.getColor(R.styleable.CustomRefreshLayout_AnimSwipeColor, mHeaderSwipeColor);
         mHeaderRadius = a.getInt(R.styleable.CustomRefreshLayout_AnimRadius, mHeaderRadius);
         mHeaderTextColor = a.getInt(R.styleable.CustomRefreshLayout_AnimTextColor, mHeaderTextColor);
         mHeaderTextSize = a.getFloat(R.styleable.CustomRefreshLayout_AnimTextSize, mHeaderTextSize);
@@ -181,7 +181,7 @@ public class CustomRefreshLayout extends FrameLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         if (mIsRefreshing) {
-            return false;
+            return true;
         }
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
