@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements EasyAdapter.CallB
             }
         });
         final CustomRefreshLayout crl = (CustomRefreshLayout) findViewById(R.id.custom_refresh);
-        crl.setTaskOffset(20000);
+        crl.setTaskOffset(5000);
         crl.setOnRefreshListener(new CustomRefreshLayout.OnCircleRefreshListener() {
             @Override
             public void completeRefresh() {

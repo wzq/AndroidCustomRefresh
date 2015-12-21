@@ -8,7 +8,15 @@ Android custom refresh layout for ``listview`` and ``recyclerview``
 # Usage 
 *** 
 
-In XML
+Add in your gradle file
+
+```groovy 
+dependencies {
+    compile 'com.wzq.customrefresh:library:1.1.0'
+} 
+``` 
+
+In XML 
 
 ```xml
     <com.wzq.customrefresh.CustomRefreshLayout

@@ -27,4 +27,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.github.wzq:easy-core:1.1.0'
     compile project(':library')
+
+  //  compile 'com.wzq.customrefresh:library:1.1.0'
+
 }
