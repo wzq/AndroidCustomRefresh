@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -22,6 +23,8 @@ public class CustomRefreshLayout extends FrameLayout {
 
     private static final long BACK_TOP_DUR = 600;
     private static final long REL_DRAG_DUR = 200;
+
+    private int taskOffset = 300;
 
     private int mHeaderSwipeColor = 0xffff3d00;
     private int mHeaderCircleColor = 0xffffccbc;
@@ -231,7 +234,12 @@ public class CustomRefreshLayout extends FrameLayout {
                         mHeader.releaseDrag();
                         mIsRefreshing = true;
                         if (onCircleRefreshListener!=null) {
-                            onCircleRefreshListener.refreshing();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    onCircleRefreshListener.refreshing();
+                                }
+                            }, taskOffset);
                         }
 
                     } else {
@@ -277,5 +285,9 @@ public class CustomRefreshLayout extends FrameLayout {
         void completeRefresh();
 
         void refreshing();
+    }
+
+    public void setTaskOffset(int taskOffset) {
+        this.taskOffset = taskOffset > 300 ? taskOffset : 300;
     }
 }

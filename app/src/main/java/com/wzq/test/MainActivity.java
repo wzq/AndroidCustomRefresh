@@ -1,7 +1,6 @@
 package com.wzq.test;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements EasyAdapter.CallB
             }
         });
         final CustomRefreshLayout crl = (CustomRefreshLayout) findViewById(R.id.custom_refresh);
+        crl.setTaskOffset(20000);
         crl.setOnRefreshListener(new CustomRefreshLayout.OnCircleRefreshListener() {
             @Override
             public void completeRefresh() {
@@ -46,18 +46,13 @@ public class MainActivity extends AppCompatActivity implements EasyAdapter.CallB
 
             @Override
             public void refreshing() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        crl.finishRefreshing();
-                    }
-                }, 3000);
+                crl.finishRefreshing();
             }
         });
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Object> data = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 20; i++) {
             data.add("item  "+i);
         }
         EasyAdapter adapter = new EasyAdapter(data, R.layout.item_main, new int[]{}, this);
